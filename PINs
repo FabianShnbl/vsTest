@@ -1,0 +1,33 @@
+# importieren der Bibliothek mit der wir die PINs des RaspberryPi nutzen können
+import RPi.GPIO as GPIO
+# importieren einer Bibliothek mit der wir das Skript für kurze Zeit stoppen können
+import time
+
+# definieren dass wir die GPIOs über ihre GPIO-Nummer anpsrechen wollen
+GPIO.setmode(GPIO.BCM)
+# PIN 23 als Output definieren
+GPIO.setup(23, GPIO.OUT)
+
+# LED einschalten = Spannung=3.3Volt
+GPIO.output(23, GPIO.HIGH)
+# LED ausschlaten = Spannung=0.0Volt
+GPIO.output(23, GPIO.LOW)
+
+# "kleine Blinkschaltung" entwickeln = LED blinkt 5 Mal auf
+for i in rrange(5)
+    GPIO.output(23, GPIO.HIGH)
+    time.sleep(0.5)
+    GPIO.output(23, GPIO.LOW)
+    time.sleep(0.5)
+
+# "Taster für Aufleuchten" = Taster auf PIN24
+GPIO.setup(24, GPIO.IN)
+GPIO.input(24)
+# Endlosschleife für Abfrage ob Taster gedrückt ist
+while True:
+    if GPIO.input(24) == 0:
+        # ausschlaten
+        GPIO.output(23, GPIO.LOW)
+    else:
+        # einschalten
+        GPIO.output(23, GPIO.HIGH)
